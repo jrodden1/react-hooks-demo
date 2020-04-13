@@ -16,15 +16,7 @@ export default function GreetingHookifiedFormInputs3() {
    const width = useWindowWidth() // So actually, the order doesn't matter, it just needs to be in the top section.
    // this above subscribes us to current updates of the window's width
 
-   //Performing side effects (similar to lifecycle methods)
-   //timestamp: 36:22
-   // Example Side Effects for changing the title of the browser tab with Hooks
-   useEffect(() => {
-      document.title = name + ' ' + lastname
-      //not "this.state.name" is not used.  This is simpler. 
-   })
-   // useEffect is slightly different from componentDidMount as it will run after 
-   // the initial render AND every update.  this can be opted out of.
+   useDocumentTitle(name + ' ' + lastname) //function def below
 
    const handleNameChange = (e) => {
       setName(e.target.value)
@@ -70,4 +62,18 @@ function useWindowWidth() {
    })
    return width; // our above functional component needs to know what the 'width' variable is from this custom hook so we simply return it.
    // then we simply run this custom hook up in our functional component above (line )
+}
+
+//Timestamp: 48:46
+// abstracting other functions out into Custom Hooks
+function useDocumentTitle(title) {
+   //Performing side effects (similar to lifecycle methods)
+   //timestamp: 36:22
+   // Example Side Effects for changing the title of the browser tab with Hooks
+   useEffect(() => {
+      document.title = title
+      //not "this.state.name" is not used.  This is simpler. 
+   })
+   // useEffect is slightly different from componentDidMount as it will run after 
+   // the initial render AND every update.  this can be opted out of.
 }
