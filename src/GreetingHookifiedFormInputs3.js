@@ -91,3 +91,12 @@ function useFormInput(initialValue) {
 }
 // Also note that each time you call a hook, it will get its own local state
 // (so you can call a hook over and over and it will be ok)
+
+// MISC NOTES ON HOOKS:
+/* 
+* Hooks allow you to: 
+   * Use all React features without a class 
+   * Reuse stateful logic between components (export your hooks as custom hooks)
+   * it is opt-in and 100% backwards compatible (Classes will still work just fine too.)
+   * Eliminates wrapper/container hell
+*/
