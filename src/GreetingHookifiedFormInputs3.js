@@ -12,7 +12,7 @@ export default function GreetingHookifiedFormInputs3() {
    // useState is a "hook" -> a Hook is a fn provided by React that lets you "hook" into React features from your functional components
    // Whenever one of the states change or the setter method is called, then react will rerender the component just like it does with this.setState
    const [ name, setName  ] = useState('Mary'/* Initial State is set here */)
-   const [ lastname, setLastname ] = useState('Poppins') 
+   const [ lastname, setLastname ] = useState('Poppins')
 
    //Performing side effects (similar to lifecycle methods)
    //timestamp: 36:22
@@ -23,6 +23,20 @@ export default function GreetingHookifiedFormInputs3() {
    })
    // useEffect is slightly different from componentDidMount as it will run after 
    // the initial render AND every update.  this can be opted out of.
+
+   // This next useEffect example is for handling the change in resize and is separate from the previous useEffect that was handling the Tab title change.
+   // This one is handling the window Resize 
+   // timestamp: 40:50
+   const [ width, setWidth] = useState(window.innerWidth)
+   // note how this state information is set right above this useEffect
+   useEffect(() => {
+      const handleResize = () => setWidth(window.innerWidth)
+      window.addEventListener('resize', handleResize)
+      // since we need to do cleanup (similar to componentWillUnmount() from classes), you can optionall return a callback that will run on cleanup
+      return () => { 
+            window.removeEventListener('resize', handleResize)
+         }
+   })
 
    const handleNameChange = (e) => {
       setName(e.target.value)
@@ -42,6 +56,8 @@ export default function GreetingHookifiedFormInputs3() {
             value={lastname}
             onChange={handleLastnameChange}
          /> 
+         <br />
+         Width: {width}px (change window width to see me change)
       </div>
    )
 }
